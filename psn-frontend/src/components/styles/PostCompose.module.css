@@ -1,0 +1,110 @@
+.postComposeCard {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: none !important;
+    transition: all 0.3s ease;
+}
+
+.postComposeCard:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+}
+
+.postHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.userAvatar {
+    margin-right: 1rem;
+}
+
+.userName {
+    font-weight: 600;
+    color: #2e7d32;
+    font-size: 1.25rem;
+}
+
+.textarea {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+    resize: none;
+    height: 7rem;
+    transition: all 0.2s ease;
+}
+
+.textarea:focus {
+    outline: none;
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.1);
+}
+
+.imageUpload {
+    margin-top: 1rem;
+}
+
+.imageLabel {
+    font-weight: 500;
+    color: #2e7d32;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.fileInput {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.fileInput:focus {
+    outline: none;
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.1);
+}
+
+.postFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.characterCount {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.postButton {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.postButton:hover:not(:disabled) {
+    background: #1b5e20;
+}
+
+.postButton:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.previewImage {
+    margin-top: 1rem;
+    border-radius: 8px;
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+} 
