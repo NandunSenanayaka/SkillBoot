@@ -540,7 +540,22 @@ function Tutorial() {
         </>
       ) : (
         <>
-          
+          {/* Quiz Search Bar */}
+          <div className="mb-4">
+            <div className="input-group">
+              <span className="input-group-text bg-light">
+                <RiSearchLine />
+              </span>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search quizzes by title..."
+                value={quizSearchQuery}
+                onChange={(e) => setQuizSearchQuery(e.target.value)}
+              />
+            </div>
+          </div>
+
           {/* Quiz List */}
           <Row>
             {filteredQuizzes.length > 0 ? (
