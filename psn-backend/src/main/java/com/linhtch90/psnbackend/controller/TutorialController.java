@@ -159,19 +159,5 @@ public class TutorialController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteTutorial(@PathVariable String id) {
-        try {
-            tutorialService.deleteTutorial(id);
-            Map<String, Object> response = new HashMap<>();
-            response.put("status", "success");
-            response.put("message", "Tutorial deleted successfully");
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            Map<String, Object> response = new HashMap<>();
-            response.put("status", "error");
-            response.put("message", e.getMessage());
-            return ResponseEntity.badRequest().body(response);
-        }
-    }
+    
 } 
