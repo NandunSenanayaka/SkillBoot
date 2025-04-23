@@ -99,4 +99,6 @@ public class PostEntity {
     public void setComment(List<CommentEntity> comment) {
         this.comment = comment;
     }
+
+    // getters and setters
 }
