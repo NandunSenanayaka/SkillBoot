@@ -39,32 +39,7 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
 
-    public Quiz updateQuiz(String id, Quiz quiz) {
-        Optional<Quiz> existingQuiz = quizRepository.findById(id);
-        
-        if (existingQuiz.isPresent()) {
-            Quiz updatedQuiz = existingQuiz.get();
-            
-            updatedQuiz.setTitle(quiz.getTitle());
-            updatedQuiz.setTimeLimit(quiz.getTimeLimit());
-            updatedQuiz.setQuestions(quiz.getQuestions());
-            
-            LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            updatedQuiz.setUpdatedAt(now.format(formatter));
-            
-            return quizRepository.save(updatedQuiz);
-        } else {
-            return null;
-        }
-    }
+   
 
-    public boolean deleteQuiz(String id) {
-        try {
-            quizRepository.deleteById(id);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
+    
 } 
