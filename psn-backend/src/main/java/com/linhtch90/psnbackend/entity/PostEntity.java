@@ -60,9 +60,7 @@ public class PostEntity {
         this.content = content;
     }
 
-    public String getImage() {
-        return image;
-    }
+
 
     public void setImage(String image) {
         this.image = image;
@@ -99,4 +97,6 @@ public class PostEntity {
     public void setComment(List<CommentEntity> comment) {
         this.comment = comment;
     }
+
+    // getters and setters omitted
 }
