@@ -23,7 +23,38 @@ public class TutorialController {
     @Autowired
     private FileStorageService fileStorageService;
 
-    
+    @PostMapping
+    public ResponseEntity<?> createTutorial(
+            @RequestParam("tutorialName") String tutorialName,
+            @RequestParam("category") String category,
+            @RequestParam("description") String description,
+            @RequestParam("userId") String userId,
+            @RequestParam("videoUrl") String videoUrl) {
+        
+        try {
+            Tutorial tutorial = new Tutorial();
+            tutorial.setTutorialName(tutorialName);
+            tutorial.setCategory(category);
+            tutorial.setDescription(description);
+            tutorial.setUserId(userId);
+            tutorial.setVideoUrl(videoUrl);
+
+            Tutorial savedTutorial = tutorialService.createTutorial(tutorial);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "success");
+            response.put("message", "Tutorial created successfully");
+            response.put("data", savedTutorial);
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "error");
+            response.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
     @GetMapping
     public ResponseEntity<?> getAllTutorials() {
         try {
