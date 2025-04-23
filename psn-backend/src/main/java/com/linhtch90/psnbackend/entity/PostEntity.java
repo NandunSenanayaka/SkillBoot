@@ -60,12 +60,17 @@ public class PostEntity {
         this.content = content;
     }
 
+    public String getImage() {
+        return image;
+    }
+
 
 
     public void setImage(String image) {
         this.image = image;
     }
 
+    
     public Instant getCreatedAt() {
         return createdAt;
     }
