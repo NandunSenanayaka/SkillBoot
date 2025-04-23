@@ -145,6 +145,7 @@ public class JobController {
             response.put("message", e.getMessage());
             return ResponseEntity.badRequest().body(response);
         }
+        //delete mapping
     }
     @DeleteMapping("/jobs/{id}")
     public ResponseEntity<Map<String, Object>> deleteJob(@PathVariable String id, @RequestParam String userId) {
