@@ -100,5 +100,5 @@ public class PostEntity {
         this.comment = comment;
     }
 
-    // getters and setters
+    // getters and setters omitted
 }
