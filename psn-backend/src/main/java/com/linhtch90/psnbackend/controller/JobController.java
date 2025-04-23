@@ -45,3 +45,58 @@ public class JobController {
         }
     }
 
+    @GetMapping("/jobs")
+    public ResponseEntity<?> getAllJobs() {
+        try {
+            List<JobEntity> jobs = jobService.getAllJobs();
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "success");
+            response.put("jobs", jobs);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "error");
+            response.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @GetMapping("/jobs/user/{userId}")
+    public ResponseEntity<?> getJobsByUserId(@PathVariable String userId) {
+        try {
+            List<JobEntity> jobs = jobService.getJobsByUserId(userId);
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "success");
+            response.put("jobs", jobs);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "error");
+            response.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @GetMapping("/jobs/{id}")
+    public ResponseEntity<?> getJobById(@PathVariable String id) {
+        try {
+            JobEntity job = jobService.getJobById(id).orElse(null);
+            if (job != null) {
+                Map<String, Object> response = new HashMap<>();
+                response.put("status", "success");
+                response.put("job", job);
+                return ResponseEntity.ok(response);
+            } else {
+                Map<String, Object> response = new HashMap<>();
+                response.put("status", "error");
+                response.put("message", "Job not found");
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "error");
+            response.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
