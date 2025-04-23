@@ -146,4 +146,24 @@ public class JobController {
             return ResponseEntity.badRequest().body(response);
         }
     }
-
+    @DeleteMapping("/jobs/{id}")
+    public ResponseEntity<Map<String, Object>> deleteJob(@PathVariable String id, @RequestParam String userId) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            boolean deleted = jobService.deleteJob(id, userId);
+            if (deleted) {
+                response.put("status", "success");
+                response.put("message", "Job deleted successfully");
+                return ResponseEntity.ok(response);
+            } else {
+                response.put("status", "error");
+                response.put("message", "Job not found");
+                return ResponseEntity.notFound().build();
+            }
+        } catch (RuntimeException e) {
+            response.put("status", "error");
+            response.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+} 
