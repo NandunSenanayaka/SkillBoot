@@ -19,4 +19,11 @@ public class QuizResultService {
     public List<Quiz> getAllQuizzes() {
         return quizRepository.findAll();
     }
+     public List<Quiz> getQuizzesByUserId(String userId) {
+        return quizRepository.findByUserId(userId);
+    }
+
+    public Optional<Quiz> getQuizById(String id) {
+        return quizRepository.findById(id);
+    }
 } 
