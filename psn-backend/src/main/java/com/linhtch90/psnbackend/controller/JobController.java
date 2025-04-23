@@ -100,3 +100,50 @@ public class JobController {
         }
     }
 
+ @PutMapping(value = "/jobs/{id}", consumes = { "multipart/form-data" })
+    public ResponseEntity<?> updateJob(
+            @PathVariable String id,
+            @RequestParam("jobTitle") String jobTitle,
+            @RequestParam("jobCategory") String jobCategory,
+            @RequestParam("jobDescription") String jobDescription,
+            @RequestParam("salary") String salary,
+            @RequestParam("companyName") String companyName,
+            @RequestParam("userId") String userId,
+            @RequestParam(value = "image", required = false) MultipartFile image) {
+        try {
+            JobRequestEntity jobRequest = new JobRequestEntity();
+            jobRequest.setUserId(userId);
+            jobRequest.setJobTitle(jobTitle);
+            jobRequest.setJobCategory(jobCategory);
+            jobRequest.setJobDescription(jobDescription);
+            jobRequest.setSalary(salary);
+            jobRequest.setCompanyName(companyName);
+            
+            // Handle image update
+            if (image != null && !image.isEmpty()) {
+                // New image file uploaded
+                String imageUrl = fileStorageService.storeFile(image);
+                jobRequest.setImage(imageUrl);
+            }
+
+            JobEntity updatedJob = jobService.updateJob(id, jobRequest);
+            if (updatedJob != null) {
+                Map<String, Object> response = new HashMap<>();
+                response.put("status", "success");
+                response.put("message", "Job updated successfully");
+                response.put("job", updatedJob);
+                return ResponseEntity.ok(response);
+            } else {
+                Map<String, Object> response = new HashMap<>();
+                response.put("status", "error");
+                response.put("message", "Job not found");
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "error");
+            response.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
