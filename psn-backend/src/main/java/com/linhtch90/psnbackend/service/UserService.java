@@ -159,3 +159,28 @@ public class UserService implements UserDetailsService {
             }
         }
     }
+    public ResponseObjectService update(UserEntity inputUser) {
+        ResponseObjectService responseObj = new ResponseObjectService();
+        Optional<UserEntity> optUser = userRepo.findById(inputUser.getId());
+        if (optUser.isEmpty()) {
+            responseObj.setStatus("fail");
+            responseObj.setMessage("user id: " + inputUser.getId() + " not existed");
+            responseObj.setPayload(null);
+            return responseObj;
+        } else {
+            UserEntity currentUser = optUser.get();
+            if (bCryptEncoder.matches(inputUser.getPassword(), currentUser.getPassword())) {
+                inputUser.setPassword(bCryptEncoder.encode(inputUser.getPassword()));
+                responseObj.setPayload(userRepo.save(inputUser));
+                responseObj.setStatus("success");
+                responseObj.setMessage("success");
+                return responseObj;
+            } else {
+                responseObj.setStatus("fail");
+                responseObj.setMessage("current password is not correct");
+                responseObj.setPayload(null);
+                return responseObj;
+            }
+        }
+    }
+
