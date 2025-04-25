@@ -9,13 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
 
 @RestController
 @RequestMapping("/api/v1")
@@ -100,7 +96,7 @@ public class JobController {
         }
     }
 
- @PutMapping(value = "/jobs/{id}", consumes = { "multipart/form-data" })
+    @PutMapping(value = "/jobs/{id}", consumes = { "multipart/form-data" })
     public ResponseEntity<?> updateJob(
             @PathVariable String id,
             @RequestParam("jobTitle") String jobTitle,
@@ -145,8 +141,8 @@ public class JobController {
             response.put("message", e.getMessage());
             return ResponseEntity.badRequest().body(response);
         }
-        //delete mapping
     }
+
     @DeleteMapping("/jobs/{id}")
     public ResponseEntity<Map<String, Object>> deleteJob(@PathVariable String id, @RequestParam String userId) {
         Map<String, Object> response = new HashMap<>();
