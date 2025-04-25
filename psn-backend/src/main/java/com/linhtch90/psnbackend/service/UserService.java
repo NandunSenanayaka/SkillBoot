@@ -145,3 +145,17 @@ public class UserService implements UserDetailsService {
             return responseObj;
         }
     }
+    public boolean updateWithoutPassword(UserEntity inputUser) {
+        Optional<UserEntity> optUser = userRepo.findById(inputUser.getId());
+        if (optUser.isEmpty()) {
+            return false;
+        } else {
+            UserEntity currentUser = optUser.get();
+            if (inputUser.getPassword().equals(currentUser.getPassword())) {
+                userRepo.save(inputUser);
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
