@@ -53,3 +53,69 @@ public class UserService implements UserDetailsService {
             return responseObj;
         }
     }
+
+    public ResponseObjectService findFollowing(String id) {
+        ResponseObjectService responseObj = new ResponseObjectService();
+        Optional<UserEntity> optUser = userRepo.findById(id);
+        if (optUser.isEmpty()) {
+            responseObj.setStatus("fail");
+            responseObj.setMessage("user id: " + id + " not existed");
+            responseObj.setPayload(null);
+            return responseObj;
+        } else {
+            List<String> followingIds = optUser.get().getFollowing();
+            List<UserEntity> followingAccounts = new ArrayList<>();
+            if (followingIds.size() > 0) {
+                for (String followingId : followingIds) {
+                    Optional<UserEntity> optFollowingUser = userRepo.findById(followingId);
+                    if (optFollowingUser.isPresent()) {
+                        UserEntity followingUser = optFollowingUser.get();
+                        followingUser.setPassword("");
+                        followingAccounts.add(followingUser);
+                    } 
+                }
+                responseObj.setStatus("success");
+                responseObj.setMessage("success");
+                responseObj.setPayload(followingAccounts);
+                return responseObj;
+            } else {
+                responseObj.setStatus("fail");
+                responseObj.setMessage("User id " + id + " does not follow anyone");
+                responseObj.setPayload(null);
+                return responseObj;
+            }
+        }
+    }
+    public ResponseObjectService findFollower(String id) {
+        ResponseObjectService responseObj = new ResponseObjectService();
+        Optional<UserEntity> optUser = userRepo.findById(id);
+        if (optUser.isEmpty()) {
+            responseObj.setStatus("fail");
+            responseObj.setMessage("user id: " + id + " not existed");
+            responseObj.setPayload(null);
+            return responseObj;
+        } else {
+            List<String> followerIds = optUser.get().getFollower();
+            List<UserEntity> followerAccounts = new ArrayList<>();
+            if (followerIds.size() > 0) {
+                for (String followerId : followerIds) {
+                    Optional<UserEntity> optFollowerUser = userRepo.findById(followerId);
+                    if (optFollowerUser.isPresent()) {
+                        UserEntity followerUser = optFollowerUser.get();
+                        followerUser.setPassword("");
+                        followerAccounts.add(followerUser);
+                    } 
+                }
+                responseObj.setStatus("success");
+                responseObj.setMessage("success");
+                responseObj.setPayload(followerAccounts);
+                return responseObj;
+            } else {
+                responseObj.setStatus("fail");
+                responseObj.setMessage("User id " + id + " does not have any follower");
+                responseObj.setPayload(null);
+                return responseObj;
+            }
+        }
+    }
+
