@@ -265,5 +265,24 @@ public class UserService implements UserDetailsService {
             return responseObj;
         }
     }
+ // important for security
+    // Use user email as unique field to login instead of username
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<UserEntity> optUser = userRepo.findByEmail(email);
+        User springUser = null;
+
+        if (optUser.isEmpty()) {
+            throw new UsernameNotFoundException("Cannot find user with email: " + email);
+        } else {
+            UserEntity foundUser = optUser.get();
+            String role = foundUser.getRole();
+            Set<GrantedAuthority> ga = new HashSet<>();
+            ga.add(new SimpleGrantedAuthority(role));
+            springUser = new User(foundUser.getEmail(), foundUser.getPassword(), ga);
+            return springUser;
+        }
+    }
+}
 
 
