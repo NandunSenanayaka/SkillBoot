@@ -55,21 +55,7 @@ public class TutorialController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<?> getAllTutorials() {
-        try {
-            List<Tutorial> tutorials = tutorialService.getAllTutorials();
-            Map<String, Object> response = new HashMap<>();
-            response.put("status", "success");
-            response.put("data", tutorials);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            Map<String, Object> response = new HashMap<>();
-            response.put("status", "error");
-            response.put("message", e.getMessage());
-            return ResponseEntity.badRequest().body(response);
-        }
-    }
+    //
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<?> getTutorialsByUserId(@PathVariable String userId) {
