@@ -90,3 +90,8 @@ public class UserController {
         }
     }
 
+
+    @PutMapping("/users/update")
+    public ResponseEntity<ResponseObjectService> update(@RequestBody UserEntity inputUser) {
+        return new ResponseEntity<ResponseObjectService>(userService.update(inputUser), HttpStatus.OK);
+    }
