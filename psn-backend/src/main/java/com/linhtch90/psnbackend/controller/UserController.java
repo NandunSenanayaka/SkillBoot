@@ -90,11 +90,11 @@ public class UserController {
         }
     }
 
+
     @PutMapping("/users/update")
     public ResponseEntity<ResponseObjectService> update(@RequestBody UserEntity inputUser) {
         return new ResponseEntity<ResponseObjectService>(userService.update(inputUser), HttpStatus.OK);
     }
-
     @GetMapping("/getdata")
     public ResponseEntity<String> testAfterLogin(Principal p) {
         return ResponseEntity.ok("Welcome. You are: " + p.getName());
