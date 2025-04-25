@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface TutorialRepository extends MongoRepository<Tutorial, String> {
-    
+    List<Tutorial> findByUserId(String userId);
+    List<Tutorial> findByCategory(String category);
 } 
