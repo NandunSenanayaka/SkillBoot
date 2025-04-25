@@ -86,6 +86,7 @@ public class UserService implements UserDetailsService {
             }
         }
     }
+
     public ResponseObjectService findFollower(String id) {
         ResponseObjectService responseObj = new ResponseObjectService();
         Optional<UserEntity> optUser = userRepo.findById(id);
@@ -145,6 +146,7 @@ public class UserService implements UserDetailsService {
             return responseObj;
         }
     }
+
     public boolean updateWithoutPassword(UserEntity inputUser) {
         Optional<UserEntity> optUser = userRepo.findById(inputUser.getId());
         if (optUser.isEmpty()) {
@@ -159,6 +161,7 @@ public class UserService implements UserDetailsService {
             }
         }
     }
+
     public ResponseObjectService update(UserEntity inputUser) {
         ResponseObjectService responseObj = new ResponseObjectService();
         Optional<UserEntity> optUser = userRepo.findById(inputUser.getId());
@@ -183,6 +186,7 @@ public class UserService implements UserDetailsService {
             }
         }
     }
+
     public ResponseObjectService followUser(DoubleIdObjectEntity doubleId) {
         // id1 - followed user, id2 - follower
 
@@ -224,6 +228,7 @@ public class UserService implements UserDetailsService {
             return responseObj;
         }
     }
+
     public ResponseObjectService unfollowUser(DoubleIdObjectEntity doubleId) {
         // id1 - followed user, id2 - follower
 
@@ -265,7 +270,8 @@ public class UserService implements UserDetailsService {
             return responseObj;
         }
     }
- // important for security
+
+    // important for security
     // Use user email as unique field to login instead of username
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -284,5 +290,3 @@ public class UserService implements UserDetailsService {
         }
     }
 }
-
-
