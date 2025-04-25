@@ -119,3 +119,29 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    public ResponseObjectService saveUser(UserEntity inputUser) {
+        ResponseObjectService responseObj = new ResponseObjectService();
+        Optional<UserEntity> optUser = userRepo.findByEmail(inputUser.getEmail());
+        if (optUser.isPresent()) {
+            responseObj.setStatus("fail");
+            responseObj.setMessage("Email address " + inputUser.getEmail() + " existed");
+            responseObj.setPayload(null);
+            return responseObj;
+        } else {
+            inputUser.setPassword(bCryptEncoder.encode(inputUser.getPassword()));
+            
+            // user follows himself so he could get his posts in newsfeed as well
+            UserEntity user = userRepo.save(inputUser);
+            List<String> listFollowing = user.getFollowing();
+            if (listFollowing == null) {
+                listFollowing = new ArrayList<>();
+            }
+            listFollowing.add(user.getId());
+            user.setFollowing(listFollowing);
+            this.updateWithoutPassword(user);
+            responseObj.setPayload(user);
+            responseObj.setStatus("success");
+            responseObj.setMessage("success");
+            return responseObj;
+        }
+    }
