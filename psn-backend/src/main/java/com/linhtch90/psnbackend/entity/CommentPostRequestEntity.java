@@ -27,4 +27,5 @@ public class CommentPostRequestEntity {
     public void setPostId(IdObjectEntity postId) {
         this.postId = postId;
     }
-}
+
+}    
