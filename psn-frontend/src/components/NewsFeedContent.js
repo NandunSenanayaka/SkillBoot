@@ -11,22 +11,7 @@ function NewsFeedContent() {
 
   // use redux toolkit thunk instead
   //
-  // async function getFollowingPosts() {
-  //   const response = await axios({
-  //     method: "post",
-  //     url: "/api/v1/followingposts",
-  //     headers: {
-  //       Authorization: localStorage.getItem("psnToken"),
-  //     },
-  //     data: {
-  //       id: localStorage.getItem("psnUserId"),
-  //     },
-  //   });
-
-  //   if (response.data !== null && response.data.status === "success") {
-  //     setPosts(response.data.payload);
-  //   }
-  // }
+ 
 
   useEffect(() => {
     dispatch(getFollowingPosts());
