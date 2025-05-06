@@ -55,9 +55,7 @@ function HomePage() {
               </h3>
             </Row>
             <Row>
-              <h3 className="my-3">
-                <BsFillShareFill /> Join and share this project to your friends
-              </h3>
+              
             </Row> */}
           </div>
         </Col>
