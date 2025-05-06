@@ -77,7 +77,17 @@ async function updateShare(postId, currentUserId) {
 
 
 
-
+async function updatePostApi(postData) {
+  const response = await axios({
+      method: "put",
+      url: "/api/v1/updatepost",
+      headers: {
+          Authorization: localStorage.getItem("psnToken"),
+      },
+      data: postData
+  });
+  return response.data;
+}
 
 
 
