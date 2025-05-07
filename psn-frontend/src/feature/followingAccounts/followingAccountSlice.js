@@ -6,6 +6,24 @@ const initialState = {
   followerAccounts: null,
 };
 
+// export const getFollowingAccounts = createAsyncThunk(
+//   "/api/v1/users/getfollowing",
+//   async (thunkAPI) => {
+//     const response = await axios({
+//       method: "post",
+//       url: "/api/v1/users/getfollowing",
+//       headers: {
+//         Authorization: localStorage.getItem("psnToken"),
+//       },
+//       data: {
+//         id: localStorage.getItem("psnUserId"),
+//       },
+//     });
+
+//     return response.data.payload;
+//   }
+// );
+
 export const getFollowingAccounts = createAsyncThunk(
   "/api/v1/users/getfollowing",
   async (thunkAPI) => {

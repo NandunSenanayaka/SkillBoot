@@ -75,17 +75,27 @@ async function updateShare(postId, currentUserId) {
     return response.data;
 }
 
+
+
 async function updatePostApi(postData) {
-    const response = await axios({
-        method: "put",
-        url: "/api/v1/updatepost",
-        headers: {
-            Authorization: localStorage.getItem("psnToken"),
-        },
-        data: postData
-    });
-    return response.data;
+  const response = await axios({
+      method: "put",
+      url: "/api/v1/updatepost",
+      headers: {
+          Authorization: localStorage.getItem("psnToken"),
+      },
+      data: postData
+  });
+  return response.data;
 }
+
+
+
+
+
+
+
+
 
 async function deletePostById(postId) {
     const response = await axios({
