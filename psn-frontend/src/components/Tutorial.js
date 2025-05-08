@@ -257,7 +257,24 @@ function Tutorial() {
       return;
     }
 
-   
+    try {
+      const token = localStorage.getItem("psnToken");
+      const response = await axios.delete(`/api/v1/tutorials/${tutorialId}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+
+      if (response.data.status === "success") {
+        showSuccessMessage("Tutorial deleted successfully!");
+        fetchTutorials();
+      } else {
+        showErrorMessage("Failed to delete tutorial");
+      }
+    } catch (error) {
+      console.error("Error deleting tutorial:", error);
+      showErrorMessage(error.response?.data?.message || "Error deleting tutorial. Please try again.");
+    }
   };
 
   const resetForm = () => {
