@@ -159,12 +159,12 @@ function PostCompose({ user, onPostCreated }) {
 
     return (
         <div className="d-flex flex-column" style={{ 
-            // border: '1px solid #e0e0e0',
-            // borderRadius: '12px',
-            // padding: '24px',
-            // backgroundColor: '#ffffff',
-            // boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-            // marginBottom: '20px'
+            border: '1px solid #e0e0e0',
+            borderRadius: '12px',
+            padding: '24px',
+            backgroundColor: '#ffffff',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+            marginBottom: '20px'
         }}>
             <ToastContainer />
             <Form className="d-flex flex-column">
