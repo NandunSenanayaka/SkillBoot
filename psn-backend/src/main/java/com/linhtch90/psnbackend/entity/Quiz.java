@@ -11,7 +11,7 @@ public class Quiz {
     @Id
     private String id;
     private String title;
-    private int timeLimit; // in minutes
+    private int timeLimit; 
     private String userId;
     private List<Question> questions;
     private String createdAt;
