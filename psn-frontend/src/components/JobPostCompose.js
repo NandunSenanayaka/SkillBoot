@@ -132,7 +132,7 @@ function JobPostCompose() {
         // Refresh job list
         dispatch(getAllJobs());
         
-        // Navigate back to jobs page
+        // Navigate back to jobs 
         navigate("/newsfeed/jobs");
       }
     } catch (error) {
