@@ -475,7 +475,18 @@ function Tutorial() {
         <>
           {/* Tutorial Search Bar */}
           <div className="mb-4">
-            
+            <div className="input-group">
+              <span className="input-group-text bg-light">
+                <RiSearchLine />
+              </span>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search tutorials by name, category, or description..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
           </div>
 
           {/* Tutorial List */}
