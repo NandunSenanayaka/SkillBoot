@@ -194,9 +194,7 @@ function Tutorial() {
         showSuccessMessage("Tutorial created successfully!");
         resetForm();
         fetchTutorials();
-      } else {
-        showErrorMessage("Failed to create tutorial");
-      }
+      } 
     } catch (error) {
       console.error("Error creating tutorial:", error);
       showErrorMessage(error.response?.data?.message || "Error creating tutorial. Please try again.");
