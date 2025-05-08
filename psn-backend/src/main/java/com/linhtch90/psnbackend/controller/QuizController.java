@@ -27,6 +27,7 @@ public class QuizController {
         Map<String, Object> response = new HashMap<>();
         response.put("status", "success");
         response.put("data", quizzes);
+
         
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
