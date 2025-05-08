@@ -252,7 +252,14 @@ function Tutorial() {
     }
   };
 
-  
+  const handleDelete = async (tutorialId) => {
+    if (!window.confirm("Are you sure you want to delete this tutorial?")) {
+      return;
+    }
+
+   
+  };
+
   const resetForm = () => {
     setTutorialName("");
     setCategory("");
