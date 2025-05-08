@@ -212,7 +212,45 @@ function Tutorial() {
     setShowForm(true);
   };
 
-  
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    if (!tutorialName || !category || !description || !videoUrl) {
+      showErrorMessage("Please fill in all required fields");
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("psnToken");
+      const response = await axios({
+        method: "put",
+        url: `/api/v1/tutorials/${editingTutorial.id}`,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: token,
+        },
+        data: (() => {
+          const formData = new FormData();
+          formData.append("tutorialName", tutorialName);
+          formData.append("category", category);
+          formData.append("description", description);
+          formData.append("videoUrl", videoUrl);
+          return formData;
+        })(),
+      });
+
+      if (response.data.status === "success") {
+        showSuccessMessage("Tutorial updated successfully!");
+        resetForm();
+        fetchTutorials();
+      } else {
+        showErrorMessage("Failed to update tutorial");
+      }
+    } catch (error) {
+      console.error("Error updating tutorial:", error);
+      showErrorMessage(error.response?.data?.message || "Error updating tutorial. Please try again.");
+    }
+  };
 
   const handleDelete = async (tutorialId) => {
     if (!window.confirm("Are you sure you want to delete this tutorial?")) {
