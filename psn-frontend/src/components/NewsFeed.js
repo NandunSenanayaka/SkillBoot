@@ -69,6 +69,30 @@ function NewsFeed() {
             <Container className={styles.navbarContainer}>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse>
+                {/* <Nav className={styles.navContainer}>
+                  <Link to="" className={`${styles.navItem} ${isActive("/newsfeed") ? styles.active : ""}`}>
+                    <RiNewspaperLine /> Newsfeed
+                  </Link>
+                  <Link to="jobs" className={`${styles.navItem} ${isActive("/newsfeed/jobs") ? styles.active : ""}`}>
+                    <RiBriefcaseLine /> Job Vacancies
+                  </Link>
+                  <Link to="following" className={`${styles.navItem} ${isActive("/newsfeed/following") ? styles.active : ""}`}>
+                    <RiRadarLine /> Following
+                  </Link>
+                  <Link to="follower" className={`${styles.navItem} ${isActive("/newsfeed/follower") ? styles.active : ""}`}>
+                    <RiBaseStationLine /> Followers
+                  </Link>
+                  <Link to="myprofile" className={`${styles.navItem} ${isActive("/newsfeed/myprofile") ? styles.active : ""}`}>
+                    <RiFolderUserLine /> My Posts
+                  </Link>
+                  <Link to="tutorial" className={`${styles.navItem} ${isActive("/newsfeed/tutorial") ? styles.active : ""}`}>
+                    <RiBookLine /> Tutorials
+                  </Link>
+                  <div className={`${styles.navItem} ${styles.signOutButton}`} onClick={handleSignOut}>
+                    <RiLogoutBoxLine /> Sign Out
+                  </div>
+                </Nav> */}
+
                 <Nav className={styles.navContainer}>
                   <Link to="" className={`${styles.navItem} ${isActive("/newsfeed") ? styles.active : ""}`}>
                     <RiNewspaperLine /> Newsfeed
@@ -92,6 +116,7 @@ function NewsFeed() {
                     <RiLogoutBoxLine /> Sign Out
                   </div>
                 </Nav>
+                
               </Navbar.Collapse>
             </Container>
           </Navbar>
