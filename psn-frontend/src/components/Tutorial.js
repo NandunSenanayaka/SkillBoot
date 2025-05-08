@@ -203,15 +203,7 @@ function Tutorial() {
     }
   };
 
-  const handleEdit = (tutorial) => {
-    setEditingTutorial(tutorial);
-    setTutorialName(tutorial.tutorialName);
-    setCategory(tutorial.category);
-    setDescription(tutorial.description);
-    setVideoUrl(tutorial.videoUrl);
-    setShowForm(true);
-  };
-
+  
   const handleUpdate = async (e) => {
     e.preventDefault();
 
