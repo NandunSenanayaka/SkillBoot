@@ -185,7 +185,6 @@ function Tutorial() {
           formData.append("category", category);
           formData.append("description", description);
           formData.append("userId", userId);
-          formData.append("videoUrl", videoUrl);
           return formData;
         })(),
       });
