@@ -63,7 +63,10 @@ function PostItem(props) {
     setCommentStatus(!commentStatus);
   }
 
-
+  function handleCommentContentChange(e) {
+    setCommentContent(e.target.value);
+    setSendButtonDisable(e.target.value.length === 0 || e.target.value.length > 100);
+  }
 
   function sendComment() {
     dispatch(
