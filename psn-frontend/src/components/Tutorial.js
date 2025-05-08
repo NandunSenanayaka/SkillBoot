@@ -191,7 +191,7 @@ function Tutorial() {
       });
 
       if (response.data.status === "success") {
-        showSuccessMessage("Tutorial created successfully!");
+        showSuccessMessage("Tutorial create successfully!");
         resetForm();
         fetchTutorials();
       } else {
