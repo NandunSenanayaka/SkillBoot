@@ -511,19 +511,7 @@ function Tutorial() {
                         </div>
                         {isAdmin && (
                           <div>
-                            <Button
-                              variant="outline-primary"
-                              className="me-2"
-                              onClick={() => handleEdit(tutorial)}
-                            >
-                              <RiEditLine /> Edit
-                            </Button>
-                            <Button
-                              variant="outline-danger"
-                              onClick={() => handleDelete(tutorial.id)}
-                            >
-                              <RiDeleteBinLine /> Delete
-                            </Button>
+                            
                           </div>
                         )}
                       </div>
