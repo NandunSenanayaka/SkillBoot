@@ -518,7 +518,12 @@ function Tutorial() {
                             >
                               <RiEditLine /> Edit
                             </Button>
-                            
+                            <Button
+                              variant="outline-danger"
+                              onClick={() => handleDelete(tutorial.id)}
+                            >
+                              <RiDeleteBinLine /> Delete
+                            </Button>
                           </div>
                         )}
                       </div>
