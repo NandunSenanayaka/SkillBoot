@@ -655,7 +655,28 @@ function Tutorial() {
                 </Col>
               </Row>
 
-              
+              <Form.Group className="mb-3">
+                <Form.Label>Description</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={4}
+                  placeholder="Enter tutorial description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label>Video URL</Form.Label>
+                <Form.Control
+                  type="url"
+                  placeholder="Enter video URL (YouTube, Vimeo, etc.)"
+                  value={videoUrl}
+                  onChange={(e) => setVideoUrl(e.target.value)}
+                  required
+                />
+              </Form.Group>
 
               <Button variant="success" type="submit" className="w-100">
                 {editingTutorial ? <><RiEditLine /> Update Tutorial</> : <><RiAddLine /> Add Tutorial</>}
