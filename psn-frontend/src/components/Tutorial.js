@@ -511,6 +511,13 @@ function Tutorial() {
                         </div>
                         {isAdmin && (
                           <div>
+                            <Button
+                              variant="outline-primary"
+                              className="me-2"
+                              onClick={() => handleEdit(tutorial)}
+                            >
+                              <RiEditLine /> Edit
+                            </Button>
                             
                           </div>
                         )}
