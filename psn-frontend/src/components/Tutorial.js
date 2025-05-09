@@ -646,7 +646,10 @@ function Tutorial() {
                     >
                       <option value="">Select category</option>
                       <option value="programming">Programming</option>
-                      
+                      <option value="design">Design</option>
+                      <option value="business">Business</option>
+                      <option value="marketing">Marketing</option>
+                      <option value="other">Other</option>
                     </Form.Select>
                   </Form.Group>
                 </Col>
