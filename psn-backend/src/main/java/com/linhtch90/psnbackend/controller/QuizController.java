@@ -22,11 +22,13 @@ public class QuizController {
 
     @GetMapping
     public ResponseEntity<Map<String, Object>> getAllQuizzes() {
+         //System.out.println("Fetching all quizzes");
         List<Quiz> quizzes = quizService.getAllQuizzes();
         
         Map<String, Object> response = new HashMap<>();
         response.put("status", "success");
         response.put("data", quizzes);
+
         
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

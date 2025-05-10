@@ -1,5 +1,6 @@
 package com.linhtch90.psnbackend.entity;
 
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,7 +11,7 @@ public class Quiz {
     @Id
     private String id;
     private String title;
-    private int timeLimit; // in minutes
+    private int timeLimit; 
     private String userId;
     private List<Question> questions;
     private String createdAt;

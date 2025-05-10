@@ -39,7 +39,8 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
 
-    public Quiz updateQuiz(String id, Quiz quiz) {
+   
+public Quiz updateQuiz(String id, Quiz quiz) {
         Optional<Quiz> existingQuiz = quizRepository.findById(id);
         
         if (existingQuiz.isPresent()) {
@@ -67,4 +68,5 @@ public class QuizService {
             return false;
         }
     }
+    
 } 
