@@ -1,5 +1,4 @@
 package com.linhtch90.psnbackend.entity;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

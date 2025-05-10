@@ -3,7 +3,6 @@ package com.linhtch90.psnbackend.repository;
 import com.linhtch90.psnbackend.entity.QuizResult;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 

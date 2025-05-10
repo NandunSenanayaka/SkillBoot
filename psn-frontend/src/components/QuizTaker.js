@@ -161,6 +161,7 @@ function QuizTaker({ quiz, onFinish }) {
     );
   }
 
+    
   return (
     <Card className="shadow mb-4">
       <Card.Header className="bg-primary text-white">

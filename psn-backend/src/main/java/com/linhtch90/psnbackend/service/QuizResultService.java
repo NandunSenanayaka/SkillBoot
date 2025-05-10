@@ -1,4 +1,4 @@
-package com.linhtch90.psnbackend.service;
+ package com.linhtch90.psnbackend.service;
 
 import com.linhtch90.psnbackend.entity.QuizResult;
 import com.linhtch90.psnbackend.repository.QuizResultRepository;
@@ -35,4 +35,5 @@ public class QuizResultService {
         
         return quizResultRepository.save(quizResult);
     }
+} 
 } 
