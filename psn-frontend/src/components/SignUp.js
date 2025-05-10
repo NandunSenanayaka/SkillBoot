@@ -7,8 +7,11 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 import { BsFillPersonPlusFill } from "react-icons/bs";
+import { FcGoogle } from "react-icons/fc";
 
 import styles from "./styles/SignUp.module.css";
 import Container from "react-bootstrap/esm/Container";
@@ -25,6 +28,9 @@ function SignUp() {
   const schema = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().required(),
+    confirmPassword: yup.string()
+      .oneOf([yup.ref('password'), null], 'Passwords must match')
+      .required('Confirm password is required'),
     firstName: yup.string().required(),
     lastName: yup.string().required(),
   });
@@ -77,6 +83,7 @@ function SignUp() {
         initialValues={{
           email: "",
           password: "",
+          confirmPassword: "",
           firstName: "",
           lastName: "",
         }}
@@ -167,9 +174,59 @@ function SignUp() {
                 </Form.Control.Feedback>
               </Form.Group>
             </Row>
+            <Row className="mb-3">
+              <Form.Group as={Col} md="12" controlId="validationFormik05">
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="confirmPassword"
+                  value={values.confirmPassword}
+                  onChange={handleChange}
+                  isInvalid={touched.confirmPassword && errors.confirmPassword}
+                  autoComplete="new-password"
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.confirmPassword}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
             <Button type="submit" variant="success">
               Sign Up <BsFillPersonPlusFill />
             </Button>
+            <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+              <OverlayTrigger
+                placement="top"
+                overlay={
+                  <Tooltip id="">
+                    Google sign-in
+                  </Tooltip>
+                }
+              >
+                <Button
+                  type="button"
+                  style={{
+                    background: '#fff',
+                    color: '#444',
+                    border: '1px solid #ddd',
+                    borderRadius: '4px',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+                    padding: '0.5rem 1.5rem',
+                    fontWeight: 500,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    margin: '0 auto',
+                    cursor: 'pointer',
+                    transition: 'background 0.2s, box-shadow 0.2s',
+                  }}
+                  onClick={() => {}}
+                  onMouseOver={e => e.currentTarget.style.background = '#f5f5f5'}
+                  onMouseOut={e => e.currentTarget.style.background = '#fff'}
+                >
+                  <FcGoogle size={22} /> Sign in with Google
+                </Button>
+              </OverlayTrigger>
+            </div>
           </Form>
         )}
       </Formik>

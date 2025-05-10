@@ -130,6 +130,7 @@
     display: flex;
     gap: 1rem;
     margin-bottom: 1rem;
+    align-items: center;
 }
 
 .commentInput input {
@@ -153,10 +154,14 @@
     border-radius: 8px;
     padding: 0.75rem 1.5rem;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .sendButton:hover:not(:disabled) {
     background: #1b5e20;
+    transform: translateY(-1px);
 }
 
 .sendButton:disabled {
@@ -176,6 +181,11 @@
     background: #f8f9fa;
     border-radius: 8px;
     margin-bottom: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.commentItem:hover {
+    background: #f1f3f4;
 }
 
 .commentUserAvatar {
@@ -194,12 +204,34 @@
 
 .commentText {
     color: #333;
+    line-height: 1.4;
+}
+
+.editCommentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.editCommentButtons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.commentActions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
 }
 
 .editButton, .deleteButton {
     padding: 0.5rem;
     border-radius: 6px;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .editButton {
@@ -214,8 +246,21 @@
 
 .editButton:hover {
     background: #c8e6c9;
+    transform: translateY(-1px);
 }
 
 .deleteButton:hover {
     background: #ffcdd2;
+    transform: translateY(-1px);
+}
+
+.cancelButton {
+    background: #f5f5f5;
+    color: #666;
+    border: 1px solid #e0e0e0;
+}
+
+.cancelButton:hover {
+    background: #e0e0e0;
+    transform: translateY(-1px);
 }

@@ -14,11 +14,21 @@ function PostCompose({ user, onPostCreated }) {
     const dispatch = useDispatch();
     const storeFollowingPosts = useSelector((state) => state.followingPostReducer.followingPosts);
 
-    const [userFullname, setUserFullname] = useState(
-        localStorage.getItem("psnUserFirstName") +
-        " " +
-        localStorage.getItem("psnUserLastName")
-    );
+    const getUserFullname = () => {
+        const firstName = localStorage.getItem("psnUserFirstName");
+        const lastName = localStorage.getItem("psnUserLastName");
+        if (firstName && firstName !== "null" && lastName && lastName !== "null") {
+            return firstName + " " + lastName;
+        } else if (firstName && firstName !== "null") {
+            return firstName;
+        } else if (lastName && lastName !== "null") {
+            return lastName;
+        } else {
+            return "User";
+        }
+    };
+
+    const [userFullname, setUserFullname] = useState(getUserFullname());
     const [userId, setUserId] = useState(localStorage.getItem("psnUserId"));
     const [postContent, setPostContent] = useState("");
     const [postContentCount, setPostContentCount] = useState(0);

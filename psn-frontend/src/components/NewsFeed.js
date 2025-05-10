@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
-import { Button, Col, Container, Nav, Navbar, Row } from "react-bootstrap";
+import { Button, Col, Container, Nav, Navbar, Row, Spinner } from "react-bootstrap";
 import logo from "./assets/psn-logo-large.png";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   RiNewspaperLine,
@@ -18,18 +20,33 @@ import styles from "./styles/NewsFeed.module.css";
 function NewsFeed() {
   let navigate = useNavigate();
   const location = useLocation();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   function handleClick(e) {
     navigate("/newsfeed/allaccounts");
   }
 
   function handleSignOut(e) {
-    localStorage.removeItem("psnUserId");
-    localStorage.removeItem("psnToken");
-    localStorage.removeItem("psnUserFirstName");
-    localStorage.removeItem("psnUserLastName");
-    localStorage.removeItem("psnUserEmail");
-    navigate("/");
+    setIsLoggingOut(true);
+    toast.success("Signed out successfully!", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+
+    setTimeout(() => {
+      localStorage.removeItem("psnUserId");
+      localStorage.removeItem("psnToken");
+      localStorage.removeItem("psnUserFirstName");
+      localStorage.removeItem("psnUserLastName");
+      localStorage.removeItem("psnUserEmail");
+      navigate("/");
+    }, 3000);
   }
 
   useEffect(() => {
@@ -44,6 +61,7 @@ function NewsFeed() {
 
   return (
     <Container className="pt-3">
+      <ToastContainer />
       <Row className="mb-3">
         <Col md={4}>
           <Row className="justify-content-center align-items-center">
@@ -88,8 +106,26 @@ function NewsFeed() {
                   <Link to="tutorial" className={`${styles.navItem} ${isActive("/newsfeed/tutorial") ? styles.active : ""}`}>
                     <RiBookLine /> Tutorials
                   </Link>
-                  <div className={`${styles.navItem} ${styles.signOutButton}`} onClick={handleSignOut}>
-                    <RiLogoutBoxLine /> Sign Out
+                  <div 
+                    className={`${styles.navItem} ${styles.signOutButton}`} 
+                    onClick={handleSignOut}
+                    style={{ pointerEvents: isLoggingOut ? 'none' : 'auto' }}
+                  >
+                    {isLoggingOut ? (
+                      <>
+                        <Spinner
+                          as="span"
+                          animation="border"
+                          size="sm"
+                          role="status"
+                          aria-hidden="true"
+                          className="me-2"
+                        />
+                        Signing Out...
+                      </>
+                    ) : (
+                      <><RiLogoutBoxLine /> Sign Out</>
+                    )}
                   </div>
                 </Nav>
               </Navbar.Collapse>

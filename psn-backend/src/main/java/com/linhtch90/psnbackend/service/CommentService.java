@@ -76,4 +76,44 @@ public class CommentService {
         }
     }
 
+    public ResponseObjectService updateComment(CommentEntity updatedComment) {
+        ResponseObjectService response = new ResponseObjectService();
+        Optional<CommentEntity> optComment = commentRepo.findById(updatedComment.getId());
+        if (optComment.isEmpty()) {
+            response.setStatus("fail");
+            response.setMessage("Comment not found");
+            response.setPayload(null);
+            return response;
+        }
+        CommentEntity comment = optComment.get();
+        comment.setContent(updatedComment.getContent());
+        commentRepo.save(comment);
+        response.setStatus("success");
+        response.setMessage("Comment updated");
+        response.setPayload(comment);
+        return response;
+    }
+
+    public ResponseObjectService deleteComment(String commentId, String postId) {
+        ResponseObjectService response = new ResponseObjectService();
+        Optional<CommentEntity> optComment = commentRepo.findById(commentId);
+        Optional<PostEntity> optPost = postRepo.findById(postId);
+        if (optComment.isEmpty() || optPost.isEmpty()) {
+            response.setStatus("fail");
+            response.setMessage("Comment or Post not found");
+            response.setPayload(null);
+            return response;
+        }
+        commentRepo.deleteById(commentId);
+        PostEntity post = optPost.get();
+        List<CommentEntity> comments = post.getComment();
+        comments.removeIf(c -> c.getId().equals(commentId));
+        post.setComment(comments);
+        postService.updatePostByComment(post);
+        response.setStatus("success");
+        response.setMessage("Comment deleted successfully");
+        response.setPayload(null);
+        return response;
+    }
+
 }

@@ -64,13 +64,10 @@ public class PostEntity {
         return image;
     }
 
-
-
     public void setImage(String image) {
         this.image = image;
     }
 
-    
     public Instant getCreatedAt() {
         return createdAt;
     }
@@ -102,6 +99,4 @@ public class PostEntity {
     public void setComment(List<CommentEntity> comment) {
         this.comment = comment;
     }
-
-    // getters and setters omitted
 }

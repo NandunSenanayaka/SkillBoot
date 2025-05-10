@@ -9,18 +9,37 @@ function NewsFeedContent() {
   const dispatch = useDispatch();
   const storeFollowingPosts = useSelector((state) => state.followingPostReducer.followingPosts);
 
+  const refreshNewsFeed = () => {
+    dispatch(getFollowingPosts());
+  };
+
   // use redux toolkit thunk instead
   //
- 
+  // async function getFollowingPosts() {
+  //   const response = await axios({
+  //     method: "post",
+  //     url: "/api/v1/followingposts",
+  //     headers: {
+  //       Authorization: localStorage.getItem("psnToken"),
+  //     },
+  //     data: {
+  //       id: localStorage.getItem("psnUserId"),
+  //     },
+  //   });
+
+  //   if (response.data !== null && response.data.status === "success") {
+  //     setPosts(response.data.payload);
+  //   }
+  // }
 
   useEffect(() => {
     dispatch(getFollowingPosts());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
       {/* <h1>NewsFeedContent page</h1> */}
-      <PostCompose />
+      <PostCompose onPostCreated={refreshNewsFeed} />
       {storeFollowingPosts !== null ? (
         storeFollowingPosts.map((post) => {
           return (
@@ -36,6 +55,7 @@ function NewsFeedContent() {
               shareList={post.post.share}
               commentList={post.post.comment}
               postDate={post.post.createdAt}
+              onPostChanged={refreshNewsFeed}
             />
           );
         })

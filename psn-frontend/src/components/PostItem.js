@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 import { Hashicon } from "@emeraldpay/hashicon-react";
 import TimeAgo from "javascript-time-ago";
@@ -40,6 +42,8 @@ function PostItem(props) {
   const [editImage, setEditImage] = useState(props.image);
   const [file64String, setFile64String] = useState(null);
   const [file64StringWithType, setFile64StringWithType] = useState(null);
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editingCommentContent, setEditingCommentContent] = useState("");
 
   TimeAgo.addLocale(en);
   const timeAgo = new TimeAgo("en-US");
@@ -69,20 +73,24 @@ function PostItem(props) {
   }
 
   function sendComment() {
+    const userFullname = localStorage.getItem("psnUserFirstName") + " " + localStorage.getItem("psnUserLastName");
+    if (!userFullname || userFullname.trim() === "") {
+      toast.error("User information not found. Please sign in again.");
+      return;
+    }
+    
     dispatch(
       addComment({
         postId: postId,
         newComment: {
           userId: localStorage.getItem("psnUserId"),
-          userFullname:
-            localStorage.getItem("psnUserFirstName") +
-            " " +
-            localStorage.getItem("psnUserLastName"),
+          userFullname: userFullname,
           content: commentContent,
         },
       })
     );
     setCommentContent("");
+    setSendButtonDisable(true);
   }
 
   function handleEditClick() {
@@ -119,6 +127,57 @@ function PostItem(props) {
       image: file64StringWithType || editImage
     }));
     setShowEditModal(false);
+  }
+
+  function handleEditComment(comment) {
+    setEditingCommentId(comment.id);
+    setEditingCommentContent(comment.content);
+  }
+
+  async function handleSaveEditComment(commentId) {
+    if (!editingCommentContent.trim()) {
+      toast.error("Comment cannot be empty");
+      return;
+    }
+    try {
+      await axios.put("/api/v1/updatecomment", {
+        id: commentId,
+        content: editingCommentContent,
+      }, {
+        headers: { Authorization: localStorage.getItem("psnToken") }
+      });
+      setEditingCommentId(null);
+      setEditingCommentContent("");
+      dispatch(getFollowingPosts());
+      toast.success("Comment updated successfully");
+    } catch (error) {
+      // toast.error("Failed to update comment");
+    }
+  }
+
+  async function handleDeleteComment(commentId) {
+    if (!commentId) {
+      toast.error("Invalid comment");
+      return;
+    }
+    if (!window.confirm("Are you sure you want to delete this comment?")) return;
+    try {
+      const response = await axios.delete(`/api/v1/deletecomment/${commentId}/${postId}`, {
+        headers: { Authorization: localStorage.getItem("psnToken") }
+      });
+      if (response.data.status === "success") {
+        toast.success("Comment deleted successfully");
+      } else {
+        toast.error("Failed to delete comment");
+      }
+      if (props.onPostChanged) {
+        props.onPostChanged();
+      } else {
+        dispatch(getFollowingPosts());
+      }
+    } catch (error) {
+      toast.error("Error deleting comment");
+    }
   }
 
   return (
@@ -209,8 +268,60 @@ function PostItem(props) {
                 </div>
                 <div className={styles.commentContent}>
                   <div className={styles.commentUserName}>{commentItem.userFullname}</div>
-                  <div className={styles.commentText}>{commentItem.content}</div>
+                  {editingCommentId === commentItem.id ? (
+                    <div className={styles.editCommentForm}>
+                      <Form.Control
+                        type="text"
+                        value={editingCommentContent}
+                        onChange={e => setEditingCommentContent(e.target.value)}
+                        className={styles.formControl}
+                      />
+                      <div className={styles.editCommentButtons}>
+                        <Button 
+                          size="sm" 
+                          variant="success" 
+                          onClick={() => handleSaveEditComment(commentItem.id)}
+                          className={styles.editButton}
+                          disabled={!editingCommentContent.trim()}
+                        >
+                          Save
+                        </Button>
+                        <Button 
+                          size="sm" 
+                          variant="outline-secondary" 
+                          onClick={() => setEditingCommentId(null)}
+                          className={styles.cancelButton}
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={styles.commentText}>{commentItem.content}</div>
+                  )}
                 </div>
+                {commentItem.userId === currentUserId && editingCommentId !== commentItem.id && (
+                  <div style={{ display: "flex", gap: "0.5rem" }}>
+                    <Button
+                      size="sm"
+                      variant="outline-success"
+                      className={styles.editButton}
+                      style={{ minWidth: "48px" }}
+                      onClick={() => handleEditComment(commentItem)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline-danger"
+                      className={styles.deleteButton}
+                      style={{ minWidth: "60px" }}
+                      onClick={() => handleDeleteComment(commentItem.id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                )}
               </div>
             ))}
           </div>

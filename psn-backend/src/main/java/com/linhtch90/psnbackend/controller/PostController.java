@@ -45,7 +45,6 @@ public class PostController {
     //     return new ResponseEntity<ResponseObjectService>(postService.updatePostByComment(inputPost), HttpStatus.OK);
     // }
 
-
     @PostMapping("/lovepost")
     public ResponseEntity<ResponseObjectService> lovePost(@RequestBody DoubleIdObjectEntity doubleId) {
         return new ResponseEntity<ResponseObjectService>(postService.updatePostByLove(doubleId), HttpStatus.OK);
@@ -61,7 +60,7 @@ public class PostController {
         return new ResponseEntity<ResponseObjectService>(postService.updatePost(inputPost), HttpStatus.OK);
     }
 
-    @DeleteMapping("/deletepost/{postId}") //delete post
+    @DeleteMapping("/deletepost/{postId}")
     public ResponseEntity<ResponseObjectService> deletePost(@PathVariable String postId) {
         return new ResponseEntity<ResponseObjectService>(postService.deletePost(postId), HttpStatus.OK);
     }

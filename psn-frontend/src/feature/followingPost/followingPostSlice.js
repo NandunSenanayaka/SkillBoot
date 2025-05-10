@@ -43,6 +43,30 @@ async function insertComment(postId, commentContent) {
   });
 }
 
+async function updateComment(commentId, content) {
+  await axios({
+    method: "put",
+    url: "/api/v1/updatecomment",
+    headers: {
+      Authorization: localStorage.getItem("psnToken"),
+    },
+    data: {
+      id: commentId,
+      content: content,
+    },
+  });
+}
+
+async function deleteComment(commentId, postId) {
+  await axios({
+    method: "delete",
+    url: `/api/v1/deletecomment/${commentId}/${postId}`,
+    headers: {
+      Authorization: localStorage.getItem("psnToken"),
+    },
+  });
+}
+
 async function updateLove(postId, currentUserId) {
     const response = await axios({
         method: "post",
@@ -75,27 +99,17 @@ async function updateShare(postId, currentUserId) {
     return response.data;
 }
 
-
-
 async function updatePostApi(postData) {
-  const response = await axios({
-      method: "put",
-      url: "/api/v1/updatepost",
-      headers: {
-          Authorization: localStorage.getItem("psnToken"),
-      },
-      data: postData
-  });
-  return response.data;
+    const response = await axios({
+        method: "put",
+        url: "/api/v1/updatepost",
+        headers: {
+            Authorization: localStorage.getItem("psnToken"),
+        },
+        data: postData
+    });
+    return response.data;
 }
-
-
-
-
-
-
-
-
 
 async function deletePostById(postId) {
     const response = await axios({

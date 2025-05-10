@@ -4,27 +4,34 @@ import { useNavigate } from "react-router-dom";
 import { getProfilePosts } from "../feature/checkProfile/checkProfileSlice";
 import { getProfileInfo } from "../feature/checkProfile/checkProfileSlice";
 import PostItem from "./PostItem";
+import PostCompose from "./PostCompose";
 
 function MyProfile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const postList = useSelector((state) => state.checkProfileReducer.postList);
   const userInfo = useSelector((state) => state.checkProfileReducer.profileInfo);
+  const userId = localStorage.getItem("psnUserId");
+
+  const refreshProfilePosts = () => {
+    dispatch(getProfilePosts(userId));
+  };
 
   useEffect(() => {
     if (localStorage.getItem("psnToken") === null) {
       navigate("/unauthorized");
     }
 
-    if (localStorage.getItem("psnUserId") !== null) {
-      dispatch(getProfilePosts(localStorage.getItem("psnUserId")));
-      dispatch(getProfileInfo(localStorage.getItem("psnUserId")));
+    if (userId !== null) {
+      dispatch(getProfilePosts(userId));
+      dispatch(getProfileInfo(userId));
     }
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, userId]);
 
   return (
     <div>
       <h1>My Profile</h1>
+      <PostCompose onPostCreated={refreshProfilePosts} />
       {postList && userInfo ? (
         postList.map((postItem) => (
           <PostItem
@@ -39,6 +46,7 @@ function MyProfile() {
             shareList={postItem.share}
             commentList={postItem.comment}
             postDate={postItem.createdAt}
+            onPostChanged={refreshProfilePosts}
           />
         ))
       ) : (
