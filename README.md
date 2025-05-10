@@ -1,5 +1,5 @@
 Project Name: PSN Social Network
-Purpose: Educational project simulating core features of Twitter
+
 
 Key Features:
 Post Creation
